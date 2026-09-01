@@ -8,6 +8,9 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}-${{ github.event_name }}
   cancel-in-progress: true
 
+permissions:
+  contents: read
+
 jobs:
   js-checks:
-    uses: hemilabs/actions/.github/workflows/js-checks.yml@main
+    uses: hemilabs/.github/.github/workflows/js-checks.yml@b53688e1a282b5e362d76921c8d54123c0a8f2e5 # v1.3.0

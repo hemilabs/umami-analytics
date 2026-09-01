@@ -14,6 +14,17 @@
       "plugins": ["@typescript-eslint"]
     },
     {
+      "extends": [
+        "bloq/vitest",
+        "plugin:@typescript-eslint/eslint-recommended",
+        "plugin:@typescript-eslint/recommended",
+        "prettier"
+      ],
+      "files": ["test/**/*.ts"],
+      "parser": "@typescript-eslint/parser",
+      "plugins": ["@typescript-eslint"]
+    },
+    {
       "extends": ["bloq/markdown"],
       "files": ["*.md"],
       "rules": {
