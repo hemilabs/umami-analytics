@@ -1,6 +1,5 @@
 "use client";
 
-import { usePathname } from "next/navigation";
 import {
   createContext,
   useContext,
@@ -76,7 +75,6 @@ export const umamiAnalyticsContextFactory = function <
 
   const useUmami = function () {
     const context = useContext(UmamiAnalyticsContext);
-    const pathname = usePathname();
     if (!context) {
       throw new Error(
         "UmamiAnalyticsProvider must be used to access the context",
@@ -91,11 +89,13 @@ export const umamiAnalyticsContextFactory = function <
                 processUrl,
                 // if autotrack is set to false (undefined defaults to true in umami), internal url is not updated
                 // so we must do it ourselves! (that's why we send pathname)
-                ...(autoTrack === false && { pathname }),
+                ...(autoTrack === false && {
+                  getPathname: () => window.location.pathname,
+                }),
               }),
             }
           : {},
-      [autoTrack, loaded, processUrl, pathname],
+      [autoTrack, loaded, processUrl],
     );
   };
 

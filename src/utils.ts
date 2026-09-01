@@ -14,7 +14,7 @@ type TrackCallback = (props: {
 }) => { website: string; [key: string]: unknown };
 
 type TrackingOptions = {
-  pathname?: string;
+  getPathname?: () => string;
   processUrl?: (url: string) => string;
 };
 
@@ -50,7 +50,7 @@ export const getTrackFunction = function <
         ...parameters,
         url: trackingOptions?.processUrl
           ? trackingOptions.processUrl(
-              trackingOptions.pathname ?? parameters.url,
+              trackingOptions.getPathname?.() ?? parameters.url,
             )
           : parameters.url,
       }));
@@ -67,7 +67,7 @@ export const getTrackFunction = function <
         name: eventName,
         url: trackingOptions?.processUrl
           ? trackingOptions.processUrl(
-              trackingOptions.pathname ?? parameters.url,
+              trackingOptions.getPathname?.() ?? parameters.url,
             )
           : parameters.url,
       }));
