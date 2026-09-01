@@ -1,19 +1,19 @@
-# umami-analytics-next
+# umami-analytics
 
-![NPM Version](https://img.shields.io/npm/v/umami-analytics-next)![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/hemilabs/umami-analytics-next/js-checks.yml?branch=main)
+![NPM Version](https://img.shields.io/npm/v/umami-analytics)![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/hemilabs/umami-analytics/js-checks.yml?branch=main)
 
 A simple type-safe integration between the [Umami Analytics](https://umami.is) API and React. The tracker script is appended when the provider mounts, so it works in any React application regardless of the framework or bundler.
 
 ## Installation
 
 ```sh
-npm install umami-analytics-next
+npm install umami-analytics
 ```
 
 ## Usage
 
 ```tsx
-import { umamiAnalyticsContextFactory } from "umami-analytics-next";
+import { umamiAnalyticsContextFactory } from "umami-analytics";
 
 
 The package exposes a `umamiAnalyticsContextFactory` function that accepts a list of events to track (with the possibility of typing the event data), and returns the Providers and hooks for you to use.
@@ -49,7 +49,7 @@ track("buy", {
 Tracking events may require custom data associated to each event. The library allows to pass a generic TEventData type that allows to type the event data for each event. This way, the `track` function will be type-safe, and will autocomplete the event names and the event data.
 
 ```tsx
-import { umamiAnalyticsContextFactory } from 'umami-analytics-next'
+import { umamiAnalyticsContextFactory } from 'umami-analytics'
 
 const events = ['buy', 'cancel', 'gift', 'sell', 'signup', 'view'] as const
 

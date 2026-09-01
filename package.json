@@ -1,5 +1,5 @@
 {
-  "name": "umami-analytics-next",
+  "name": "umami-analytics",
   "version": "1.1.0",
   "description": "A simple type-safe integration between the Umami Analytics API and React",
   "keywords": [
@@ -8,7 +8,7 @@
     "typescript",
     "umami"
   ],
-  "bugs": "https://github.com/hemilabs/umami-analytics-next/issues",
+  "bugs": "https://github.com/hemilabs/umami-analytics/issues",
   "license": "MIT",
   "author": "Gonzalo D'Elia <gonzalo@bloq.com>",
   "files": [
@@ -18,7 +18,7 @@
     "src/**/*.tsx"
   ],
   "main": "./_esm/index.js",
-  "repository": "hemilabs/umami-analytics-next",
+  "repository": "hemilabs/umami-analytics",
   "scripts": {
     "build": "npm run clean && npm run build:esm && npm run build:types",
     "build:esm": "tsc --noEmit false --outDir ./_esm --sourceMap",
