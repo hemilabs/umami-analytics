@@ -94,3 +94,53 @@ export const getTrackFunction = function <
   }
   return track;
 };
+
+type ScriptOptions = {
+  autoTrack: boolean;
+  domains?: string;
+  onLoad: () => void;
+  src: string;
+  websiteId: string;
+};
+
+export const appendTrackerScript = function ({
+  autoTrack,
+  domains,
+  onLoad,
+  src,
+  websiteId,
+}: ScriptOptions) {
+  // Keyed by src, like next/script was: effects run twice under StrictMode, and
+  // a second provider must attach to the running script rather than start another.
+  const existing = Array.from(document.scripts).find(
+    (script) => script.getAttribute("src") === src,
+  );
+  if (existing) {
+    if (existing.dataset.loaded) {
+      onLoad();
+      return undefined;
+    }
+    existing.addEventListener("load", onLoad);
+    return () => existing.removeEventListener("load", onLoad);
+  }
+
+  const script = document.createElement("script");
+  script.async = true;
+  script.dataset.autoTrack = autoTrack.toString();
+  script.dataset.websiteId = websiteId;
+  if (domains) {
+    script.dataset.domains = domains;
+  }
+  script.src = src;
+  // Marked on the element, and never removed on cleanup, so a later caller can
+  // tell a finished load from one still in flight even if the tracker itself
+  // never installed (a blocked or missing script still fires load).
+  script.addEventListener("load", function markLoaded() {
+    script.dataset.loaded = "true";
+  });
+  script.addEventListener("load", onLoad);
+  // The script is left in place on purpose: removing it would not unload the
+  // tracker, and appending it again would run it twice.
+  document.body.appendChild(script);
+  return () => script.removeEventListener("load", onLoad);
+};

@@ -1,16 +1,16 @@
 "use client";
 
 import { usePathname } from "next/navigation";
-import Script from "next/script";
 import {
   createContext,
   useContext,
-  useState,
+  useEffect,
   useMemo,
+  useState,
   type ReactNode,
 } from "react";
 
-import { getTrackFunction } from "./utils";
+import { appendTrackerScript, getTrackFunction } from "./utils";
 
 type UmamiAnalyticsContextType = {
   autoTrack?: boolean;
@@ -43,29 +43,34 @@ export const umamiAnalyticsContextFactory = function <
     ...options
   }: Props) {
     const [loaded, setLoaded] = useState(false);
+    const { domains } = options;
+    const domainList =
+      Array.isArray(domains) && domains.length > 0
+        ? domains.join(",")
+        : undefined;
+
+    useEffect(
+      function loadTracker() {
+        if (!src || !websiteId) {
+          return undefined;
+        }
+        return appendTrackerScript({
+          autoTrack,
+          domains: domainList,
+          onLoad: () => setLoaded(true),
+          src,
+          websiteId,
+        });
+      },
+      [autoTrack, domainList, src, websiteId],
+    );
 
     return (
-      <>
-        <UmamiAnalyticsContext.Provider
-          value={{ autoTrack, loaded, src, websiteId, ...options }}
-        >
-          {children}
-        </UmamiAnalyticsContext.Provider>
-        {!!src && !!websiteId && (
-          <Script
-            async
-            data-auto-track={autoTrack.toString()}
-            data-website-id={websiteId}
-            src={src}
-            {...(options.domains !== undefined &&
-              Array.isArray(options.domains) &&
-              options.domains.length > 0 && {
-                "data-domains": options.domains.join(","),
-              })}
-            onLoad={() => setLoaded(true)}
-          />
-        )}
-      </>
+      <UmamiAnalyticsContext.Provider
+        value={{ autoTrack, loaded, src, websiteId, ...options }}
+      >
+        {children}
+      </UmamiAnalyticsContext.Provider>
     );
   };
 
