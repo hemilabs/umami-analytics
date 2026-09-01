@@ -2,7 +2,7 @@
 
 ![NPM Version](https://img.shields.io/npm/v/umami-analytics-next)![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/hemilabs/umami-analytics-next/js-checks.yml?branch=main)
 
-A simple type-safe integration between the Umami Analytics API, loaded using [Next's Script](https://nextjs.org/docs/pages/api-reference/components/script) component.
+A simple type-safe integration between the [Umami Analytics](https://umami.is) API and React. The tracker script is appended when the provider mounts, so it works in any React application regardless of the framework or bundler.
 
 ## Installation
 
@@ -22,7 +22,7 @@ const events = ["buy", "cancel", "gift", "sell", "signup", "view"] as const;
 const { UmamiAnalyticsContext, UmamiAnalyticsProvider, useUmami } =
   umamiAnalyticsContextFactory(eventNames);
 
-// Then, in your _app.tsx or layout component:
+// Then, at the root of your app:
 <UmamiAnalyticsProvider
   autoTrack={false} // defaults to true
   src="script-url"
@@ -87,7 +87,7 @@ const { UmamiAnalyticsContext, UmamiAnalyticsProvider, useUmami } =
     eventNames,
   )
 
-  // As above, in your _app.tsx or layout component:
+  // As above, at the root of your app:
   <UmamiAnalyticsProvider
     autoTrack={false} // defaults to true
     processUrl={removeLocaleAndTrailingSlash}
@@ -125,7 +125,9 @@ The array of events. For type-safety, it must be a [const assertion](https://www
 
 ### UmamiAnalyticsProvider
 
-The React provider. It accepts the following properties:
+The React provider. The tracker is appended once per `src`: changing any of the properties below after mount does not reconfigure a script that is already on the page.
+
+It accepts the following properties:
 
 #### autoTrack?
 
