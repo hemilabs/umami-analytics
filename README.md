@@ -12,15 +12,14 @@ npm install umami-analytics
 
 ## Usage
 
+The package exposes a `umamiAnalyticsContextFactory` function that accepts a list of events to track (with the possibility of typing the event data), and returns the Providers and hooks for you to use.
+
 ```tsx
 import { umamiAnalyticsContextFactory } from "umami-analytics";
 
-
-The package exposes a `umamiAnalyticsContextFactory` function that accepts a list of events to track (with the possibility of typing the event data), and returns the Providers and hooks for you to use.
-
 const events = ["buy", "cancel", "gift", "sell", "signup", "view"] as const;
 const { UmamiAnalyticsContext, UmamiAnalyticsProvider, useUmami } =
-  umamiAnalyticsContextFactory(eventNames);
+  umamiAnalyticsContextFactory(events);
 
 // Then, at the root of your app:
 <UmamiAnalyticsProvider
@@ -83,9 +82,7 @@ type EventDataMap = {
 
 // Generic types are optional, but type-safety for event data will be missing if not provided
 const { UmamiAnalyticsContext, UmamiAnalyticsProvider, useUmami } =
-  umamiAnalyticsContextFactory<EventDataMap, Events>(
-    eventNames,
-  )
+  umamiAnalyticsContextFactory<Events, EventDataMap>(events)
 
   // As above, at the root of your app:
   <UmamiAnalyticsProvider

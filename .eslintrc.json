@@ -1,6 +1,6 @@
 {
   "extends": ["bloq", "prettier"],
-  "ignorePatterns": ["_esm/**/*", "_types/**/*", "*.config.js"],
+  "ignorePatterns": ["_esm/**/*", "_types/**/*", "*.config.js", "*.config.ts"],
   "overrides": [
     {
       "extends": [

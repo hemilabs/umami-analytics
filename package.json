@@ -30,7 +30,7 @@
     "prepare": "husky",
     "prepublishOnly": "npm run build",
     "test": "vitest run",
-    "tsc:check": "tsc"
+    "tsc:check": "tsc && tsc -p tsconfig.test.json"
   },
   "devDependencies": {
     "@commitlint/cli": "^19.5.0",
@@ -52,8 +52,7 @@
     "vitest": "^4.1.6"
   },
   "peerDependencies": {
-    "react": ">=18",
-    "react-dom": ">=18"
+    "react": ">=18"
   },
   "engines": {
     "node": ">=16.9.0"

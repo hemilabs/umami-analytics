@@ -110,8 +110,6 @@ export const appendTrackerScript = function ({
   src,
   websiteId,
 }: ScriptOptions) {
-  // Keyed by src, like next/script was: effects run twice under StrictMode, and
-  // a second provider must attach to the running script rather than start another.
   const existing = Array.from(document.scripts).find(
     (script) => script.getAttribute("src") === src,
   );
