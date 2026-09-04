@@ -7,5 +7,8 @@ on:
 
 jobs:
   npm-publish:
-    uses: hemilabs/actions/.github/workflows/npm-publish.yml@main
+    permissions:
+      contents: read
+      id-token: write
+    uses: hemilabs/.github/.github/workflows/npm-publish.yml@2900f1ef5a775d5d1f96ae012f5ad5d6e98cd6ec # v1.3.1
     secrets: inherit
