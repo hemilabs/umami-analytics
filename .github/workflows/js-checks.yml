@@ -13,4 +13,4 @@ permissions:
 
 jobs:
   js-checks:
-    uses: hemilabs/.github/.github/workflows/js-checks.yml@b53688e1a282b5e362d76921c8d54123c0a8f2e5 # v1.3.0
+    uses: hemilabs/.github/.github/workflows/js-checks.yml@2900f1ef5a775d5d1f96ae012f5ad5d6e98cd6ec # v1.3.1
